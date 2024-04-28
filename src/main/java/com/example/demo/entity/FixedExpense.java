@@ -7,8 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-@Entity
 @Data
+@Entity
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class FixedExpense {

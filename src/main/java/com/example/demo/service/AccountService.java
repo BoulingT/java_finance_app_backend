@@ -1,11 +1,12 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.investment.InvestmentAccountDto;
+import com.example.demo.dto.investment.InvestmentRecapDto;
+import com.example.demo.entity.investments.InvestmentAccount;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.mapper.InvestmentAccountMapper;
 import com.example.demo.repository.investment.InvestmentAccountRepository;
 import org.springframework.stereotype.Service;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class AccountService {
@@ -19,9 +20,14 @@ public class AccountService {
         this.investmentAccountMapper = investmentAccountMapper;
     }
 
-    public Set<InvestmentAccountDto> getAllInvestments() {
-        return investmentAccountRepository.findAll().stream()
-                .map(investmentAccountMapper::investmentAccountToInvestmentAccountDto)
-                .collect(Collectors.toSet());
+    public InvestmentRecapDto getAllInvestmentRecap() {
+        Optional<InvestmentAccount> investmentAccounts = investmentAccountRepository.findAll().stream()
+                .findFirst();
+
+        if (investmentAccounts.isEmpty()) {
+            throw new ResourceNotFoundException("Investment Account not found");
+        }
+        InvestmentRecapDto investmentRecapDto = investmentAccountMapper.investmentAccountToInvestmentRecapDto(investmentAccounts.get());
+        return investmentRecapDto;
     }
 }

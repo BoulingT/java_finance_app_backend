@@ -11,6 +11,8 @@ public class PeaAccount {
     @Id
     private Long id;
 
+    private String brokerName;
+
     @ManyToMany
     private Set<Stock> stockSet;
 

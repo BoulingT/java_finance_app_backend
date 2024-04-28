@@ -2,15 +2,14 @@ package com.example.demo.dto.investment;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor
-public class InvestmentAccountDto {
+public class InvestmentAccountShortDto {
 
     private Long id;
 
-    private Set<InvestmentAccountDto> investmentAccounts;
+    private String brokerName;
 
     private Double totalValue;
 }

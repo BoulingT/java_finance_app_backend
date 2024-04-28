@@ -1,6 +1,6 @@
 package com.example.demo.mapper;
 
-import com.example.demo.dto.investment.InvestmentAccountDto;
+import com.example.demo.dto.investment.InvestmentRecapDto;
 import com.example.demo.entity.investments.InvestmentAccount;
 import lombok.Data;
 import org.modelmapper.ModelMapper;
@@ -10,10 +10,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class InvestmentAccountMapperImpl  implements InvestmentAccountMapper {
 
-    private final ModelMapper modelMapper;
-
     @Override
-    public InvestmentAccountDto investmentAccountToInvestmentAccountDto(InvestmentAccount investmentAccount) {
-        return modelMapper.map(investmentAccount, InvestmentAccountDto.class);
+    public InvestmentRecapDto investmentAccountToInvestmentRecapDto(InvestmentAccount investmentAccount) {
+
+        InvestmentRecapDto investmentRecapDto = new InvestmentRecapDto();
+        investmentRecapDto.setId(investmentAccount.getId());
+//        investmentRecapDto.setTotalValue(investmentRecapDto.setTotalValue());
+        return null;
     }
 }

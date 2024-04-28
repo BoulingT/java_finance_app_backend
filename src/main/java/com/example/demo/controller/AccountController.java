@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.investment.InvestmentAccountDto;
+import com.example.demo.dto.investment.InvestmentRecapDto;
 import com.example.demo.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ public class AccountController {
     private final AccountService accountService;
 
     @GetMapping("/investments")
-    private Set<InvestmentAccountDto> getAllInvestments() {
-        return accountService.getAllInvestments();
+    private InvestmentRecapDto getAllInvestments() {
+        return accountService.getAllInvestmentRecap();
     }
 }
