@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.MonthlyExpenseListDto;
 import com.example.demo.service.ExpenseService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +17,8 @@ public class ExpenseController {
         this.expenseService = expenseService;
     }
 
-    @GetMapping("/monthly-expense-list")
-    public MonthlyExpenseListDto getMonthlyExpenseList() {
-        return expenseService.getMonhtlyExpenseList();
-    }
+//    @GetMapping("/monthly-expense-list")
+//    public MonthlyExpenseListDto getMonthlyExpenseList() {
+//        return expenseService.getMonhtlyExpenseList();
+//    }
 }

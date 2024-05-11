@@ -1,8 +1,9 @@
 package com.example.demo.dto.incomes;
 
-import com.example.demo.entity.incomes.FixedIncome;
+import com.example.demo.entity.incomes.Income;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.Set;
 
@@ -11,24 +12,26 @@ public class MonthlyIncomeDto {
 
     private Long id;
 
-    private YearMonth yearMonth;
+    private Long user_id;
 
-    private FixedIncome salary;
+    private LocalDate activeMonth;
 
-    private FixedIncome freelance;
+    private IncomeDto salary;
 
-    private Set<FixedIncome> aids;
+//    private Income freelance;
+
+    private Set<IncomeDto> aids;
 
     private Double totalIncomeAmount;
 
     public void setTotalIncomeAmount() {
-        var total = salary != null ? salary.getAmount() : 0;
-        total += freelance != null ? freelance.getAmount() : 0;
-        total += getAidsTotalIncomeAmount();
-        totalIncomeAmount = total;
+//        var total = salary != null ? salary.getAmount() : 0;
+//        total += freelance != null ? freelance.getAmount() : 0;
+//        total += getAidsTotalIncomeAmount();
+//        totalIncomeAmount = total;
     }
 
-    private Double getAidsTotalIncomeAmount() {
-        return !aids.isEmpty() ? aids.stream().mapToDouble(FixedIncome::getAmount).sum() : 0;
-    }
+//    private Double getAidsTotalIncomeAmount() {
+////        return !aids.isEmpty() ? aids.stream().mapToDouble(Income::getAmount).sum() : 0;
+//    }
 }

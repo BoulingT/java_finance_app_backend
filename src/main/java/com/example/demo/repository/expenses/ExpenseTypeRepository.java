@@ -1,6 +1,6 @@
-package com.example.demo.repository;
+package com.example.demo.repository.expenses;
 
-import com.example.demo.entity.ExpenseType;
+import com.example.demo.entity.expenses.ExpenseType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

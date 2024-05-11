@@ -15,8 +15,8 @@ public class IncomeController {
 
     private final IncomeService incomeService;
 
-    @GetMapping("/monthly-income")
-    public MonthlyIncomeDto getMonthlyIncomeList() throws BadRequestException {
-        return incomeService.getMonthlyIncomeList();
-    }
+//    @GetMapping("/monthly-income")
+//    public MonthlyIncomeDto getMonthlyIncomeList() throws BadRequestException {
+//        return incomeService.getMonthlyIncomeList();
+//    }
 }
