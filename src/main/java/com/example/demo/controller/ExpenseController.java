@@ -1,24 +1,22 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.expenses.ExpenseDto;
 import com.example.demo.service.ExpenseService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.RequiredArgsConstructor;
+import org.apache.coyote.BadRequestException;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 @RequestMapping("/api/expense")
+@RequiredArgsConstructor
 public class ExpenseController {
 
 
     private final ExpenseService expenseService;
 
-    public ExpenseController(ExpenseService expenseService) {
-        this.expenseService = expenseService;
+    @PostMapping("/add-new-expense")
+    public ExpenseDto addNewExpense(@RequestBody ExpenseDto expenseDto) throws BadRequestException {
+        return expenseService.addNewExpense(expenseDto);
     }
-
-//    @GetMapping("/monthly-expense-list")
-//    public MonthlyExpenseListDto getMonthlyExpenseList() {
-//        return expenseService.getMonhtlyExpenseList();
-//    }
 }
