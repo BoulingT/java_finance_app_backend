@@ -26,4 +26,9 @@ public class ExpenseController {
     public Set<ExpenseDto> getCurrentMonthExpenseList() {
         return expenseService.getCurrentMonthExpenseList();
     }
+
+    @DeleteMapping("{expenseId}")
+    public void deleteExpense(@PathVariable Long expenseId) {
+        expenseService.deleteExpenseById(expenseId);
+    }
 }

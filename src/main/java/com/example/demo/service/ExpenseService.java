@@ -4,6 +4,7 @@ import com.example.demo.dto.expenses.ExpenseDto;
 import com.example.demo.dto.expenses.ExpenseTypeDto;
 import com.example.demo.entity.expenses.Expense;
 import com.example.demo.entity.expenses.ExpenseType;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.mapper.ExpenseMapperImpl;
 import com.example.demo.repository.expenses.ExpenseRepository;
 import lombok.RequiredArgsConstructor;
@@ -43,6 +44,13 @@ public class ExpenseService {
         return currentMonthExpenseList.stream()
                 .map(this::mapExpenseEntityToDto)
                 .collect(Collectors.toSet());
+    }
+
+    public void deleteExpenseById(Long expenseId) {
+        if (!expenseRepository.existsById(expenseId)) {
+            throw new ResourceNotFoundException("Expense not found with id " + expenseId);
+        }
+        expenseRepository.deleteById(expenseId);
     }
 
     private ExpenseDto mapExpenseEntityToDto(Expense expense) {
