@@ -12,9 +12,5 @@ import java.util.Set;
 @Repository
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
 
-    //    @Query("SELECT e FROM Expense e WHERE YEAR(e.creationDate) = :year AND MONTH(e.creationDate) = :month AND user_id = :userId")
-//    Set<Expense> findByMonth(@Param("year") int year, @Param("month") int month, Long userId);
-//
-//    Set<Expense> findByUserIdAndCreationDate
     Set<Expense> findByUserIdAndCreationDateBetween(Long userId, LocalDate startDate, LocalDate endDate);
 }
