@@ -10,6 +10,12 @@ import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.Date;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class ExpenseService {
@@ -25,6 +31,18 @@ public class ExpenseService {
         final var expense = mapDtoToEntity(expenseDto);
         final var savedExpense = expenseRepository.save(expense);
         return mapExpenseEntityToDto(savedExpense);
+    }
+
+    public Set<ExpenseDto> getCurrentMonthExpenseList() {
+        YearMonth currentMonth = YearMonth.now();
+        final var currentMonthExpenseList = expenseRepository.findByUserIdAndCreationDateBetween(
+                1L,
+                currentMonth.atDay(1),
+                currentMonth.atEndOfMonth()
+        );
+        return currentMonthExpenseList.stream()
+                .map(this::mapExpenseEntityToDto)
+                .collect(Collectors.toSet());
     }
 
     private ExpenseDto mapExpenseEntityToDto(Expense expense) {
