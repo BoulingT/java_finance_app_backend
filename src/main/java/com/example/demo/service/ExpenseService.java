@@ -19,19 +19,12 @@ public class ExpenseService {
     private final ExpenseMapperImpl expenseMapper;
 
     public ExpenseDto addNewExpense(ExpenseDto expenseDto) throws BadRequestException {
-        // Check if exists
-        if (isExpenseNotExist(expenseDto)) {
+        if (expenseDto.getId() != null) {
             throw new BadRequestException("Expense alreadyExists");
         }
-        // Map to entity
-        Expense expense = mapDtoToEntity(expenseDto);
-
-        // Save
-        expense = expenseRepository.save(expense);
-        // Map to dto
-
-        // return dto
-        return mapExpenseEntityToDto(expense);
+        final var expense = mapDtoToEntity(expenseDto);
+        final var savedExpense = expenseRepository.save(expense);
+        return mapExpenseEntityToDto(savedExpense);
     }
 
     private ExpenseDto mapExpenseEntityToDto(Expense expense) {
@@ -58,13 +51,5 @@ public class ExpenseService {
         expenseType.setId(expenseTypeDto.getId());
         expenseType.setLabel(expenseTypeDto.getLabel());
         return expenseType;
-    }
-
-    private boolean isExpenseNotExist(ExpenseDto expenseDto) {
-        var expenseId = expenseDto.getId();
-        if (expenseId == null) {
-            return false;
-        }
-        return !expenseRepository.existsById(expenseId);
     }
 }
