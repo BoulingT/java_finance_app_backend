@@ -1,4 +1,4 @@
-package com.example.demo.mapper;
+package com.example.demo.mapper.interfaces;
 
 import com.example.demo.dto.expenses.ExpenseDto;
 import com.example.demo.entity.expenses.Expense;
