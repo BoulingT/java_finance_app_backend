@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.expenses.ExpenseDto;
 import com.example.demo.dto.incomes.IncomeDto;
+import com.example.demo.dto.incomes.IncomeTypeDto;
 import com.example.demo.dto.incomes.MonthlyIncomeDto;
 import com.example.demo.service.IncomeService;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +27,9 @@ public class IncomeController {
     public MonthlyIncomeDto getCurrentMonthIncomeList() {
         return incomeService.getCurrentMonthlyIncome();
     }
-//
-//    @DeleteMapping("{expenseId}")
-//    public void deleteIncome(@PathVariable Long expenseId) {
-//        incomeService.deleteIncomeById(incomeId);
-//    }
+
+    @PostMapping("/add-new-income-type")
+    public IncomeTypeDto addNewIncomeType(@RequestBody IncomeTypeDto incomeTypeDto) throws BadRequestException {
+        return incomeService.addNewIncomeType(incomeTypeDto);
+    }
 }

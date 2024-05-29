@@ -7,6 +7,7 @@ import com.example.demo.entity.incomes.Income;
 import com.example.demo.entity.incomes.IncomeType;
 import com.example.demo.mapper.interfaces.IIncomeMapper;
 import com.example.demo.repository.incomes.IncomeRespository;
+import com.example.demo.repository.incomes.IncomeTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,8 @@ import java.util.stream.Collectors;
 public class IncomeService {
 
     private final IncomeRespository incomeRespository;
+
+    private final IncomeTypeRepository incomeTypeRepository;
 
     private final IIncomeMapper incomeMapper;
 
@@ -41,6 +44,18 @@ public class IncomeService {
                 currentMonth.atEndOfMonth()
         );
         return mapEntitySetToMonthlyIncomeDto(currentMonthIncomeSet);
+    }
+
+    public IncomeTypeDto addNewIncomeType(IncomeTypeDto incomeTypeDto) throws BadRequestException {
+        if (incomeTypeDto.getId() != null) {
+            throw new BadRequestException("IncomeTypeDto must have a null id parameter");
+        }
+        if (incomeTypeRepository.existsByLabel(incomeTypeDto.getLabel())) {
+            throw new BadRequestException("IncomeType already exists");
+        }
+        final var incomeType = getIncomeTypeEntity(incomeTypeDto);
+        final var savedIncomeType = incomeTypeRepository.save(incomeType);
+        return getIncomeTypeDto(savedIncomeType);
     }
 
     private MonthlyIncomeDto mapEntitySetToMonthlyIncomeDto(Set<Income> currentMonthIncomeSet) {

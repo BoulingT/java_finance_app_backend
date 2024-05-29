@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IncomeTypeRepository extends JpaRepository<IncomeType, Long> {
+    boolean existsByLabel(String label);
 }
