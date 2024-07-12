@@ -11,9 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class MonthlyRessourceDto {
 
-    private Long id;
-
-    private Long user_id;
+    private Long userId;
 
     private LocalDate activeMonth;
 
@@ -22,6 +20,4 @@ public class MonthlyRessourceDto {
     private MonthlyExpenseDto monthlyExpense;
 
 //  monthlyInvestment : MonthlyInvestmentDto
-
-    private Double totalIncomeAmount;
 }

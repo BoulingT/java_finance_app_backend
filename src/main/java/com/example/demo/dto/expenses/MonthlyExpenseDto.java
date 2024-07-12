@@ -2,16 +2,17 @@ package com.example.demo.dto.expenses;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.Set;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class MonthlyExpenseDto {
-    private Long id;
 
-    private Long user_id;
+    private Long userId;
 
     private LocalDate activeMonth;
 
@@ -21,7 +22,7 @@ public class MonthlyExpenseDto {
 
     private Set<ExpenseDto> creditList;
 
-    private int consommationBudget;
+    private Double consommationBudget;
 
     private Double totalExpenseAmount;
 }

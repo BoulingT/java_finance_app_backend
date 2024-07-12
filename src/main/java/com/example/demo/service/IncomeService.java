@@ -53,9 +53,9 @@ public class IncomeService {
         if (incomeTypeRepository.existsByLabel(incomeTypeDto.getLabel())) {
             throw new BadRequestException("IncomeType already exists");
         }
-        final var incomeType = getIncomeTypeEntity(incomeTypeDto);
+        final var incomeType = mapIncomeTypeDtoToIncomeTypeEntity(incomeTypeDto);
         final var savedIncomeType = incomeTypeRepository.save(incomeType);
-        return getIncomeTypeDto(savedIncomeType);
+        return mapIncomeTypeToIncomeTypeDto(savedIncomeType);
     }
 
     private MonthlyIncomeDto mapEntitySetToMonthlyIncomeDto(Set<Income> currentMonthIncomeSet) {
@@ -88,11 +88,11 @@ public class IncomeService {
 
     private Income mapDtoToEntity(IncomeDto incomeDto) {
         Income income = incomeMapper.dtoToEntity(incomeDto);
-        income.setIncomeType(getIncomeTypeEntity(incomeDto.getIncomeType()));
+        income.setIncomeType(mapIncomeTypeDtoToIncomeTypeEntity(incomeDto.getIncomeType()));
         return income;
     }
 
-    private IncomeType getIncomeTypeEntity(IncomeTypeDto incomeTypeDto) {
+    private IncomeType mapIncomeTypeDtoToIncomeTypeEntity(IncomeTypeDto incomeTypeDto) {
         IncomeType incomeType = new IncomeType();
         incomeType.setId(incomeTypeDto.getId());
         incomeType.setLabel(incomeTypeDto.getLabel());
@@ -101,11 +101,11 @@ public class IncomeService {
 
     private IncomeDto mapIncomeEntityTodDto(Income savedIncome) {
         IncomeDto incomeDto = incomeMapper.entityToDto(savedIncome);
-        incomeDto.setIncomeType(getIncomeTypeDto(savedIncome.getIncomeType()));
+        incomeDto.setIncomeType(mapIncomeTypeToIncomeTypeDto(savedIncome.getIncomeType()));
         return null;
     }
 
-    private IncomeTypeDto getIncomeTypeDto(IncomeType incomeType) {
+    private IncomeTypeDto mapIncomeTypeToIncomeTypeDto(IncomeType incomeType) {
         return new IncomeTypeDto(incomeType.getId(), incomeType.getLabel());
     }
 }

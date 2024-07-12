@@ -24,7 +24,7 @@ public class ExpenseController {
 
     @GetMapping("/current-month")
     public Set<ExpenseDto> getCurrentMonthExpenseList() {
-        return expenseService.getCurrentMonthExpenseList();
+        return expenseService.getCurrentMonthExpenseListDto();
     }
 
     @DeleteMapping("{expenseId}")

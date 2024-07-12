@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/ressources")
+@RequestMapping("/api/resources")
 public class RessourceController {
 
     private final RessourceService ressourceService;
 
-    @GetMapping
+    @GetMapping("/current-month")
     public MonthlyRessourceDto getCurrentMonthRessourcesByUserId() {
         return ressourceService.currentMonthRessourcesByUserId();
     }

@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.expenses.ExpenseDto;
 import com.example.demo.dto.expenses.ExpenseTypeDto;
+import com.example.demo.dto.expenses.MonthlyExpenseDto;
 import com.example.demo.entity.expenses.Expense;
 import com.example.demo.entity.expenses.ExpenseType;
 import com.example.demo.exception.ResourceNotFoundException;
@@ -11,9 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.YearMonth;
-import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,14 +33,12 @@ public class ExpenseService {
         return mapExpenseEntityToDto(savedExpense);
     }
 
-    public Set<ExpenseDto> getCurrentMonthExpenseList() {
-        YearMonth currentMonth = YearMonth.now();
-        final var currentMonthExpenseList = expenseRepository.findByUserIdAndCreationDateBetween(
-                1L,
-                currentMonth.atDay(1),
-                currentMonth.atEndOfMonth()
-        );
-        return currentMonthExpenseList.stream()
+    public MonthlyExpenseDto getCurrentMonthlyExpenseDto() {
+        return expenseMapper.expenseListToMonthlyExpenseDto(getCurrentMonthExpenseListDto());
+    }
+
+    public Set<ExpenseDto> getCurrentMonthExpenseListDto() {
+        return getCurrentMonthExpenseList().stream()
                 .map(this::mapExpenseEntityToDto)
                 .collect(Collectors.toSet());
     }
@@ -51,6 +48,15 @@ public class ExpenseService {
             throw new ResourceNotFoundException("Expense not found with id " + expenseId);
         }
         expenseRepository.deleteById(expenseId);
+    }
+
+    private Set<Expense> getCurrentMonthExpenseList() {
+        YearMonth currentMonth = YearMonth.now();
+        return expenseRepository.findByUserIdAndCreationDateBetween(
+                1L,
+                currentMonth.atDay(1),
+                currentMonth.atEndOfMonth()
+        );
     }
 
     private ExpenseDto mapExpenseEntityToDto(Expense expense) {
