@@ -9,6 +9,14 @@ import lombok.Data;
 @Entity(name = "income_type")
 public class IncomeType {
 
+    public IncomeType(Long id, String label) {
+        this.id = id;
+        this.label = label;
+    }
+
+    public IncomeType() {
+    }
+
     @Id
     private Long id;
 
