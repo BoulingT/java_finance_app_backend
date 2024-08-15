@@ -4,6 +4,9 @@ import com.example.demo.entity.expenses.ExpenseType;
 import com.example.demo.entity.incomes.IncomeType;
 import com.example.demo.repository.expenses.ExpenseTypeRepository;
 import com.example.demo.repository.incomes.IncomeTypeRepository;
+import com.example.demo.security.entity.User;
+import com.example.demo.security.enums.Role;
+import com.example.demo.security.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,9 +18,15 @@ public class DataInitializer implements CommandLineRunner {
 
     private final IncomeTypeRepository incomeTypeRepository;
 
-    public DataInitializer(ExpenseTypeRepository expenseTypeRepository, IncomeTypeRepository incomeTypeRepository) {
+    private final UserRepository userRepository;
+
+    public DataInitializer(ExpenseTypeRepository expenseTypeRepository,
+                           IncomeTypeRepository incomeTypeRepository,
+                           UserRepository userRepository
+    ) {
         this.expenseTypeRepository = expenseTypeRepository;
         this.incomeTypeRepository = incomeTypeRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -37,6 +46,9 @@ public class DataInitializer implements CommandLineRunner {
             incomeTypeRepository.save(new IncomeType(3L, "Refund"));
             incomeTypeRepository.save(new IncomeType(4L, "Refund loan"));
             incomeTypeRepository.save(new IncomeType(5L, "Other"));
+        }
+        if(userRepository.count() == 0) {
+            userRepository.save(new User(1L, "recruiter", "recruiter@gmail.com", Role.USER));
         }
     }
 }
