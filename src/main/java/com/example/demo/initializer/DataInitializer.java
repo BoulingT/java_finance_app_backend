@@ -48,7 +48,7 @@ public class DataInitializer implements CommandLineRunner {
             incomeTypeRepository.save(new IncomeType(5L, "Other"));
         }
         if(userRepository.count() == 0) {
-            userRepository.save(new User(1L, "recruiter", "recruiter@gmail.com", Role.USER));
+            userRepository.save(new User(1L, "recruiter@gmail.com", "recruiter", Role.USER));
         }
     }
 }

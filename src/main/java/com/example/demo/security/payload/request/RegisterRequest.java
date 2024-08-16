@@ -15,10 +15,10 @@ import lombok.Data;
 public class RegisterRequest {
 
     @NotBlank(message = "firstname is required")
-    private String firstname;
+    private String firstName;
 
     @NotBlank(message = "lastname is required")
-    private String lastname;
+    private String lastName;
 
     @NotBlank(message = "email is required")
     @Email(message = "email format is not valid")
@@ -28,6 +28,4 @@ public class RegisterRequest {
     @StrongPassword
     private String password;
 
-    @NotBlank(message = "address is required")
-    private String address;
 }
