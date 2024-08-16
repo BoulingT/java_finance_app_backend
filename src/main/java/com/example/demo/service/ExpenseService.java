@@ -33,12 +33,12 @@ public class ExpenseService {
         return mapExpenseEntityToDto(savedExpense);
     }
 
-    public MonthlyExpenseDto getCurrentMonthlyExpenseDto() {
-        return expenseMapper.expenseListToMonthlyExpenseDto(getCurrentMonthExpenseListDto());
+    public MonthlyExpenseDto getCurrentMonthlyExpenseDtoByUserId(Long userId) {
+        return expenseMapper.expenseListToMonthlyExpenseDto(getCurrentMonthExpenseListDtoByUserId(userId));
     }
 
-    public Set<ExpenseDto> getCurrentMonthExpenseListDto() {
-        return getCurrentMonthExpenseList().stream()
+    public Set<ExpenseDto> getCurrentMonthExpenseListDtoByUserId(Long userId) {
+        return getCurrentMonthExpenseListByUserId(userId).stream()
                 .map(this::mapExpenseEntityToDto)
                 .collect(Collectors.toSet());
     }
@@ -50,10 +50,10 @@ public class ExpenseService {
         expenseRepository.deleteById(expenseId);
     }
 
-    private Set<Expense> getCurrentMonthExpenseList() {
+    private Set<Expense> getCurrentMonthExpenseListByUserId(Long userId) {
         YearMonth currentMonth = YearMonth.now();
         return expenseRepository.findByUserIdAndCreationDateBetween(
-                1L,
+                userId,
                 currentMonth.atDay(1),
                 currentMonth.atEndOfMonth()
         );

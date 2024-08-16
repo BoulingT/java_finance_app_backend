@@ -36,10 +36,10 @@ public class IncomeService {
         return mapIncomeEntityTodDto(savedIncome);
     }
 
-    public MonthlyIncomeDto getCurrentMonthlyIncome() {
+    public MonthlyIncomeDto getCurrentMonthlyIncomeByUserId(Long userId) {
         YearMonth currentMonth = YearMonth.now();
         final var currentMonthIncomeSet = incomeRespository.findByUserIdAndCreationDateBetween(
-                1L,
+                userId,
                 currentMonth.atDay(1),
                 currentMonth.atEndOfMonth()
         );

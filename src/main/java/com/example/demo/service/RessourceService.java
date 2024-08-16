@@ -15,9 +15,9 @@ public class RessourceService {
 
     private final IMonthlyResourceMapper monthlyResourceMapper;
 
-    public MonthlyRessourceDto currentMonthRessourcesByUserId() {
-        final var currentMonthlyIncome = incomeService.getCurrentMonthlyIncome();
-        final var currentMonthlyExpense = expenseService.getCurrentMonthlyExpenseDto();
+    public MonthlyRessourceDto currentMonthResourcesByUserId(Long userId) {
+        final var currentMonthlyIncome = incomeService.getCurrentMonthlyIncomeByUserId(userId);
+        final var currentMonthlyExpense = expenseService.getCurrentMonthlyExpenseDtoByUserId(userId);
         return monthlyResourceMapper.mapMonthlyRessourceDto(currentMonthlyIncome, currentMonthlyExpense);
     }
 }

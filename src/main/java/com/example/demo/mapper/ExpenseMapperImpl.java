@@ -16,7 +16,7 @@ public class ExpenseMapperImpl {
     public Expense dtoToEntity(ExpenseDto expenseDto) {
         Expense expense = new Expense();
         expense.setId(expenseDto.getId());
-        expense.setUserId(expenseDto.getUser_id());
+        expense.setUserId(expenseDto.getUserId());
         expense.setCreationDate(expenseDto.getCreatedAt());
         expense.setAmount(expenseDto.getAmount());
         expense.setLabel(expenseDto.getLabel());
@@ -29,7 +29,7 @@ public class ExpenseMapperImpl {
         if (expense.getId() != null) {
             expenseDto.setId(expense.getId());
         }
-        expenseDto.setUser_id(expense.getUserId());
+        expenseDto.setUserId(expense.getUserId());
         expenseDto.setCreatedAt(expense.getCreationDate());
         expenseDto.setAmount(expense.getAmount());
         expenseDto.setLabel(expense.getLabel());
@@ -41,7 +41,7 @@ public class ExpenseMapperImpl {
         ExpenseDto referenceExpense = expenseDtoSet.stream()
                 .findAny()
                 .orElseThrow(() -> new IllegalStateException("ExpenseMapper expenseListToMonthlyExpenseDto: No reference expense found"));
-        monthlyExpenseDto.setUserId(referenceExpense.getUser_id());
+        monthlyExpenseDto.setUserId(referenceExpense.getUserId());
         monthlyExpenseDto.setActiveMonth(referenceExpense.getCreatedAt());
         monthlyExpenseDto.setBillList(expenseDtoSet.stream()
                 .filter(expense -> ExpenseTypeEnum.fromValue(expense.getExpenseType().getId()) == ExpenseTypeEnum.BILL)
