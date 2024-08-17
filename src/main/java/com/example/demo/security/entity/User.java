@@ -28,6 +28,12 @@ public class User implements UserDetails {
     private Long id;
 
     @NotNull
+    private String firstName;
+
+    @NotNull
+    private String lastName;
+
+    @NotNull
     @Column(unique=true)
     private String email;
 
