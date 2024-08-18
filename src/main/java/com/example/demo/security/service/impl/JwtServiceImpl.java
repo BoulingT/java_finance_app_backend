@@ -45,6 +45,7 @@ public class JwtServiceImpl implements JwtService {
         claims.put("firstName", userDetails.getFirstName());
         claims.put("lastName", userDetails.getLastName());
         claims.put("email", userDetails.getEmail());
+        claims.put("roles", userDetails.getRole());
 
         return Jwts
                 .builder()
@@ -102,6 +103,7 @@ public class JwtServiceImpl implements JwtService {
         final Claims claims = extractAllClaims(token);
         return claimsResolvers.apply(claims);
     }
+
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
@@ -109,6 +111,7 @@ public class JwtServiceImpl implements JwtService {
                 .parseClaimsJws(token)
                 .getBody();
     }
+
     private Key getSigningKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);

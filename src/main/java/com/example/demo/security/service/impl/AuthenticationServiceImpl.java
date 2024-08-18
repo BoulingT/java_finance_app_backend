@@ -19,8 +19,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-
-@Service @Transactional
+@Service
+@Transactional
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
 
@@ -36,16 +36,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         String email = request.getEmail();
         User userExist = userRepository.findByEmail(email).orElse(null);
-        if (userExist != null){
+        if (userExist != null) {
             return AuthenticationResponse.builder()
                     .accessToken(null)
-                    .email(request.getEmail())
-                    .id(null)
                     .refreshToken(null)
-                    .roles(null)
                     .tokenType(null)
-                    .message("User with email "+request.getEmail()+" already exists")
-                    .status("Failure")
+                    .message("User with email " + request.getEmail() + " already exists")
                     .build();
         }
 
@@ -69,20 +65,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         return AuthenticationResponse.builder()
                 .accessToken(jwt)
-                .email(savedUser.getEmail())
-                .id(savedUser.getId())
                 .refreshToken(refreshToken.getToken())
-                .roles(roles)
-                .tokenType( TokenType.BEARER.name())
+                .tokenType(TokenType.BEARER.name())
                 .message("User created")
-                .status("Success")
                 .build();
     }
 
     @Override
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword()));
+                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 
         var user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
         var roles = user.getRole().getAuthorities()
@@ -93,13 +85,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         var refreshToken = refreshTokenService.createRefreshToken(user.getId());
         return AuthenticationResponse.builder()
                 .accessToken(jwt)
-                .roles(roles)
-                .email(user.getEmail())
-                .id(user.getId())
                 .refreshToken(refreshToken.getToken())
-                .tokenType( TokenType.BEARER.name())
+                .tokenType(TokenType.BEARER.name())
                 .message("User connected")
-                .status("Success")
                 .build();
     }
 }
