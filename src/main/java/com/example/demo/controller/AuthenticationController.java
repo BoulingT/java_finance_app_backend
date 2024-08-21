@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/authentication")
+@RequestMapping("/api/authentication")
 @RequiredArgsConstructor
 public class AuthenticationController {
 

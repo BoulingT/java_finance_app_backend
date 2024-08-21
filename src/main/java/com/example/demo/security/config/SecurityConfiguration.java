@@ -18,6 +18,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -34,6 +35,7 @@ public class SecurityConfiguration {
 
     private static final Long MAX_AGE = 3600L;
     private static final int CORS_FILTER_ORDER = -102;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
@@ -56,6 +58,7 @@ public class SecurityConfiguration {
     public FilterRegistrationBean corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
         config.setAllowCredentials(true);
         config.setAllowedHeaders(Arrays.asList(
                 HttpHeaders.AUTHORIZATION,
